@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Abdul Kalam</title>
+
+<style>
+    /* These color names make the theme easier to update in one place. */
+    :root {
+        color-scheme: light;
+        --ink: #19312e;
+        --muted: #52635f;
+        --green: #174f46;
+        --green-dark: #103b35;
+        --mint: #e1eee8;
+        --coral: #c85e43;
+        --paper: #f5f4ee;
+        --line: #d7ded8;
+    }
+
+    * {
+        /* Include padding and borders inside an element's set width. */
+        box-sizing: border-box;
+    }
+
+    /* Smooth scrolling and spacing for links in the top navigation. */
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 86px;
+    }
+
+    /* Main page text and background. */
+    body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.65;
+    }
+
+    /* Title area at the top of the page. */
+    header {
+        padding: 64px 24px 58px;
+        color: white;
+        text-align: center;
+        background: var(--green-dark);
+        border-bottom: 6px solid var(--coral);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: clamp(2.2rem, 6vw, 4.5rem);
+        line-height: 1.08;
+    }
+
+    header p {
+        margin: 14px 0 0;
+        color: #d4e6df;
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+    }
+
+    /* Navigation stays visible while the page scrolls. */
+    nav {
+        position: sticky;
+        z-index: 2;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 10px 16px;
+        background: var(--green);
+    }
+
+    nav a {
+        padding: 8px 13px;
+        color: white;
+        font-family: Arial, sans-serif;
+        font-size: 0.92rem;
+        text-decoration: none;
+        border-radius: 3px;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+        color: var(--green-dark);
+        background: white;
+        outline: none;
+    }
+
+    /* Shared style for the main content sections. */
+    section {
+        max-width: 1100px;
+        margin: 26px auto;
+        padding: 30px;
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+    }
+
+    h2 {
+        margin: 0 0 18px;
+        color: var(--green);
+        font-size: 1.75rem;
+        line-height: 1.2;
+    }
+
+    /* The portrait floats beside the text on wide screens. */
+    #about img {
+        float: right;
+        width: min(32%, 250px);
+        height: auto;
+        margin: 0 0 20px 30px;
+        border: 5px solid var(--mint);
+        border-radius: 4px;
+    }
+
+    #about::after {
+        display: block;
+        clear: both;
+        content: "";
+    }
+
+    /* Shared table styles for the personal details. */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid var(--line);
+    }
+
+    th {
+        width: 30%;
+        color: var(--green-dark);
+        background: var(--mint);
+    }
+
+    /* Three information panels, with equal-width columns. */
+    .three-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: stretch;
+        gap: 18px;
+        max-width: 1100px;
+        margin: 26px auto;
+    }
+
+    .small-card {
+        min-width: 0;
+        margin: 0;
+        padding: 24px;
+        border-top: 4px solid var(--green);
+    }
+
+    .small-card h2 {
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .card-intro {
+        min-height: 5.2em;
+        margin: 0 0 14px;
+        color: var(--muted);
+    }
+
+    /* Clickable rows use the browser's built-in details element. */
+    .detail-item {
+        border-top: 1px solid var(--line);
+    }
+
+    .detail-item:last-child {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .detail-item summary {
+        position: relative;
+        padding: 13px 28px 13px 0;
+        color: var(--green-dark);
+        font-family: Arial, sans-serif;
+        font-weight: 700;
+        line-height: 1.4;
+        cursor: pointer;
+        list-style: none;
+    }
+
+    .detail-item summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .detail-item summary::after {
+        position: absolute;
+        top: 50%;
+        right: 3px;
+        color: var(--coral);
+        font-size: 1.35rem;
+        content: "+";
+        transform: translateY(-50%);
+    }
+
+    .detail-item[open] summary::after {
+        content: "−";
+    }
+
+    .detail-item summary:focus-visible {
+        outline: 2px solid var(--coral);
+        outline-offset: 3px;
+    }
+
+    .detail-item p {
+        margin: 0 0 15px;
+        color: var(--muted);
+        font-family: Arial, sans-serif;
+        font-size: 0.93rem;
+    }
+
+    .detail-meta {
+        display: block;
+        margin-top: 3px;
+        color: var(--coral);
+        font-size: 0.82rem;
+        font-weight: 400;
+    }
+
+    /* At tablet widths, show two panels per row. */
+    @media (max-width: 900px) {
+        section,
+        .three-cards {
+            margin-right: 18px;
+            margin-left: 18px;
+        }
+
+        .three-cards {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    /* At phone widths, stack panels and adjust spacing. */
+    @media (max-width: 620px) {
+        header {
+            padding: 46px 20px;
+        }
+
+        nav {
+            gap: 0;
+            padding: 7px 8px;
+        }
+
+        nav a {
+            padding: 7px 9px;
+            font-size: 0.84rem;
+        }
+
+        section,
+        .small-card {
+            padding: 22px;
+        }
+
+        .three-cards {
+            grid-template-columns: 1fr;
+        }
+
+        .card-intro {
+            min-height: 0;
+        }
+
+        #about img {
+            float: none;
+            display: block;
+            width: min(100%, 250px);
+            margin: 0 auto 22px;
+        }
+
+        th,
+        td {
+            padding: 9px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <h1>Dr. A.P.J. Abdul Kalam</h1>
+
+    <p>
+        Scientist, Teacher and Former President of India
+    </p>
+
+</header>
+
+
+<nav>
+
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#awards">Awards</a>
+    <a href="#books">Books</a>
+
+</nav>
+
+
+<!-- ==============================
+     ABOUT
+     ============================== -->
+
+<section id="about">
+
+    <h2>About A.P.J. Abdul Kalam</h2>
+
+    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/A._P._J._Abdul_Kalam.jpg"
+         alt="A.P.J. Abdul Kalam">
+
+    <p>
+        Dr. A.P.J. Abdul Kalam was born on 15 October 1931
+        in Rameswaram, Tamil Nadu.
+    </p>
+
+    <p>
+        He was an Indian aerospace scientist and served as
+        the 11th President of India from 2002 to 2007.
+    </p>
+
+    <p>
+        He worked with ISRO and DRDO and played an important
+        role in India's space and missile programmes.
+    </p>
+
+</section>
+
+
+<!-- ==============================
+     PERSONAL DETAILS
+     ============================== -->
+
+<section>
+
+    <h2>Personal Details</h2>
+
+    <table>
+
+        <tr>
+            <th>Full Name</th>
+            <td>Avul Pakir Jainulabdeen Abdul Kalam</td>
+        </tr>
+
+        <tr>
+            <th>Date of Birth</th>
+            <td>15 October 1931</td>
+        </tr>
+
+        <tr>
+            <th>Place of Birth</th>
+            <td>Rameswaram, Tamil Nadu</td>
+        </tr>
+
+        <tr>
+            <th>Profession</th>
+            <td>Scientist, Author and Teacher</td>
+        </tr>
+
+        <tr>
+            <th>President of India</th>
+            <td>2002 - 2007</td>
+        </tr>
+
+        <tr>
+            <th>Date of Death</th>
+            <td>27 July 2015</td>
+        </tr>
+
+    </table>
+
+</section>
+
+
+<!-- ==============================
+     EDUCATION
+     ============================== -->
+
+<section id="education">
+
+    <h2>Education</h2>
+
+    <ul>
+
+        <li>Schwartz Higher Secondary School</li>
+
+        <li>St. Joseph's College, Tiruchirappalli</li>
+
+        <li>Madras Institute of Technology</li>
+
+    </ul>
+
+    <p>
+        He studied physics and later aerospace engineering.
+    </p>
+
+</section>
+
+
+<!-- =================================================
+     ACHIEVEMENTS + AWARDS + BOOKS
+     ================================================= -->
+
+<div class="three-cards">
+
+
+    <!-- ==========================================
+         ACHIEVEMENTS CARD
+         ========================================== -->
+
+    <section id="achievements" class="small-card">
+        <h2>Major Achievements</h2>
+        <p class="card-intro">Explore Dr. Kalam's contributions to India's space, defence and scientific programmes.</p>
+
+        <details class="detail-item">
+            <summary>
+                SLV-III Programme
+                <span class="detail-meta">1980</span>
+            </summary>
+            <p>
+                As Project Director, he led India's SLV-III programme. Its successful launch placed the Rohini satellite into near-Earth orbit.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>
+                ISRO Launch Vehicle Programme
+                <span class="detail-meta">1960s-1980s</span>
+            </summary>
+            <p>
+                While working at ISRO, he contributed to India's development of indigenous launch vehicle technology.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>
+                Integrated Guided Missile Development Programme
+                <span class="detail-meta">1980s-1990s</span>
+            </summary>
+            <p>
+                He led the missile development programme at DRDO and contributed to systems including Agni and Prithvi.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>
+                Technology Vision 2020
+                <span class="detail-meta">1990s</span>
+            </summary>
+            <p>
+                He helped shape a national technology vision for using science and technology to support India's development.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>
+                Scientific Adviser
+                <span class="detail-meta">1992-1999</span>
+            </summary>
+            <p>
+                He served as Scientific Adviser to the Defence Minister and Secretary of the Department of Defence Research and Development.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>
+                President of India
+                <span class="detail-meta">2002-2007</span>
+            </summary>
+            <p>
+                As India's 11th President, he became widely known for his close connection with students and young people.
+            </p>
+        </details>
+    </section>
+
+
+    <!-- ==========================================
+         AWARDS CARD
+         ========================================== -->
+
+    <section id="awards" class="small-card">
+        <h2>Major Awards</h2>
+        <p class="card-intro">Dr. Kalam received India's three major civilian honours for his contributions to the nation.</p>
+
+        <details class="detail-item">
+            <summary>
+                Padma Bhushan
+                <span class="detail-meta">1981</span>
+            </summary>
+            <p>
+                One of India's major civilian honours, awarded to Kalam for his contribution to science and engineering.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>
+                Padma Vibhushan
+                <span class="detail-meta">1990</span>
+            </summary>
+            <p>
+                This honour recognises distinguished service. It acknowledged his contributions to India's scientific and technological programmes.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>
+                Bharat Ratna
+                <span class="detail-meta">1997</span>
+            </summary>
+            <p>
+                India's highest civilian award, recognising his contributions to science, technology and public service.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>
+                Honorary Doctorates
+                <span class="detail-meta">Various years</span>
+            </summary>
+            <p>
+                He received honorary doctorates from numerous universities and institutions in India and abroad.
+            </p>
+        </details>
+    </section>
+
+
+    <!-- ==========================================
+         BOOKS CARD
+         ========================================== -->
+
+    <section id="books" class="small-card">
+        <h2>Famous Books</h2>
+        <p class="card-intro">Open a title to see its authors and what it is about.</p>
+
+        <details class="detail-item">
+            <summary>Wings of Fire</summary>
+            <p>
+                <strong>Authors:</strong> A.P.J. Abdul Kalam and Arun Tiwari. His autobiography traces his childhood, education, scientific career and work on India's space programme.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>India 2020</summary>
+            <p>
+                <strong>Authors:</strong> A.P.J. Abdul Kalam and Y.S. Rajan. A vision for India's development through science, technology, education and national planning.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>Ignited Minds</summary>
+            <p>
+                <strong>Author:</strong> A.P.J. Abdul Kalam. Encourages young people to use their knowledge and abilities for national development.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>My Journey</summary>
+            <p>
+                <strong>Author:</strong> A.P.J. Abdul Kalam. Short pieces and personal memories reflecting on experiences from his life.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>Envisioning an Empowered Nation</summary>
+            <p>
+                <strong>Authors:</strong> A.P.J. Abdul Kalam and A. Sivathanu Pillai. Discusses technology and ideas for transforming India and improving society.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>Guiding Souls</summary>
+            <p>
+                <strong>Authors:</strong> A.P.J. Abdul Kalam and Arun Tiwari. Reflections on questions of life, purpose and spiritual development.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>The Luminous Sparks</summary>
+            <p>
+                <strong>Author:</strong> A.P.J. Abdul Kalam. A creative work presenting aspects of his ideas and life through verse and visual presentation.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>The Life Tree</summary>
+            <p>
+                <strong>Author:</strong> A.P.J. Abdul Kalam. Poems reflecting on life and ideas, accompanied by artwork.
+            </p>
+        </details>
+        <details class="detail-item">
+            <summary>Mission India</summary>
+            <p>
+                <strong>Authors:</strong> A.P.J. Abdul Kalam and Y.S. Rajan. Presents ideas about India's development and future, building on themes associated with India 2020.
+            </p>
+        </details>
+    </section>
+
+
+</div>
+
+
+<!-- ==============================
+     FAMOUS QUOTE
+     ============================== -->
+
+<section>
+
+    <h2>Famous Quote</h2>
+
+    <p>
+
+        <b>
+            "Dream transforms into thoughts,
+            and thoughts result into action."
+        </b>
+
+    </p>
+
+</section>
+
+
+</body>
+
+</html>
